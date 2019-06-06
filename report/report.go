@@ -6,7 +6,20 @@ import (
 	"strings"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/weaveworks/scope/common/xfer"
+)
+
+var (
+	// OOMKilledCounter is to count OOMKilled status of a pod
+	OOMKilledCounter = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Namespace: "scope",
+			Name:      "oom_killed_count",
+			Help:      "Number of OOMKilled count of a pod",
+		},
+		[]string{"namespace", "app", "pod"},
+	)
 )
 
 // Names of the various topologies.
